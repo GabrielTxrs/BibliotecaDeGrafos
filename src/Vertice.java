@@ -5,7 +5,13 @@ public class Vertice
     private int grau;
     private boolean flag;
 
-
+    public Vertice(int indice)
+    {
+        setIndice(indice);
+        setRotulo("v"+String.valueOf(indice));
+        setGrau(0);
+        setFlag(false);
+    }
     public Vertice(int indice, String rotulo)
     {
         setIndice(indice);
