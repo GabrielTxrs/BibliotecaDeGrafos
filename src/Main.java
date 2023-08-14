@@ -9,6 +9,11 @@ public class Main
         grafo1.adicionarVertice(4,"v4");
         grafo1.adicionarVertice(5,"v5");
 
+        grafo1.adicionarAresta(1,2);
+        grafo1.adicionarAresta(2,3);
+        grafo1.adicionarAresta(3,4);
+        grafo1.adicionarAresta(4,5);
+
         grafo1.imprimirGrafo();
     }
 }

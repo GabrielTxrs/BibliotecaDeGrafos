@@ -28,19 +28,24 @@ public class Grafo
         listaAdj.put(new Vertice(indice, rotulo), new LinkedList());
         vertices.add(new Vertice(indice, rotulo));
     }
-    public void removeVertice(int indice, String rotulo){
-        Vertice vertice = new Vertice(indice, rotulo);
-        listaAdj.values().stream().forEach(e -> e.remove(vertice));
-        listaAdj.remove(vertice);
-        vertices.remove(vertice);
+    public void removeVertice(int indice, String rotulo) {
+        Vertice v = new Vertice(indice, rotulo);
+        listaAdj.values().stream().forEach(e -> e.remove(v));
+        listaAdj.remove(v);
+        vertices.remove(v);
     }
-    public void adicionarAresta(int vertice1, int vertice2) {
-        Vertice v1 = new Vertice(vertice1);
-        Vertice v2 = new Vertice(vertice2);
-
-
+    public void adicionarAresta(int origem, int destino) {
+       Vertice vorigem = vertices.get(origem-1);
+       Vertice vdestino = vertices.get(destino-1);
+       List<Vertice> v1 = new LinkedList<>();
+       List<Vertice> v2 = new LinkedList<>();
+       v1.add(vdestino);
+       v2.add(vorigem);
+       listaAdj.put(vorigem, v1);
+       listaAdj.put(vdestino, v2);
 
     }
+
 
 
     public void imprimirGrafo()
@@ -55,9 +60,10 @@ public class Grafo
             System.out.print("Vertice " + vertices.get(x).getRotulo() + ": ");
             for (Vertice vertice : listaAdj.keySet())
             {
-                listaAdj.get(vertice);
+                System.out.print(listaAdj.values());
             }
             System.out.println();
+
         }
     }
 
