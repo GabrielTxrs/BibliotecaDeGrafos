@@ -6,7 +6,7 @@ public class Grafo
     private List<Vertice> vertices;
     private int numArestas;
     private List<Aresta> arestas;
-    private Map<Vertice, List<Vertice>> listaAdj;
+    private List<List<Vertice>> listaAdj;
     private boolean matriz;
     private int[][] matrizAdj;
 
@@ -19,35 +19,53 @@ public class Grafo
             matrizAdj = new int[numVertices][numVertices];
         }
         else {
-            this.listaAdj = new HashMap<>();
+            listaAdj = new LinkedList<>();
+            for (int i = 0; i < numVertices; i++)
+            {
+                listaAdj.add(i,new LinkedList<>());
+            }
         }
-        this.arestas = new LinkedList<>();
-        this.vertices = new LinkedList<>();
+        arestas = new LinkedList<>();
+        vertices = new LinkedList<>();
     }
-    public void adicionarVertice(int indice, String rotulo) {
-        listaAdj.put(new Vertice(indice, rotulo), new LinkedList());
+    public void adicionarVertice(int indice, String rotulo)
+    {
         vertices.add(new Vertice(indice, rotulo));
     }
-    public void removeVertice(int indice, String rotulo) {
-        Vertice v = new Vertice(indice, rotulo);
-        listaAdj.values().stream().forEach(e -> e.remove(v));
-        listaAdj.remove(v);
-        vertices.remove(v);
+    //JGraphT biblioteca de grafos em java
+    public void removerVertice(int indice)
+    {
+        if(numArestas > 1)
+        {
+            for (int i = 0; i < numVertices; i++)
+            {
+                while(listaAdj.get(i).remove(getVertice(indice)));
+            }
+        }
+        vertices.remove(indice-1);
+        numVertices--;
     }
-    public void adicionarAresta(int origem, int destino) {
-       Vertice vorigem = vertices.get(origem-1);
-       Vertice vdestino = vertices.get(destino-1);
-       List<Vertice> v1 = new LinkedList<>();
-       List<Vertice> v2 = new LinkedList<>();
-       v1.add(vdestino);
-       v2.add(vorigem);
-       listaAdj.put(vorigem, v1);
-       listaAdj.put(vdestino, v2);
-
+    public Vertice getVertice(int i)
+    {
+        return vertices.get(i-1);
     }
-
-
-
+    public void imprimirVertice(int i)
+    {
+        System.out.println(vertices.get(i-1).getIndice());
+        System.out.println(vertices.get(i-1).getRotulo());
+    }
+    public void adicionarAresta(int origem, int destino)
+    {
+        if(origem == destino) {
+            listaAdj.get(origem-1).add(getVertice(destino));
+        }
+        else {
+            listaAdj.get(origem-1).add(getVertice(destino));
+            listaAdj.get(destino-1).add(getVertice(origem));
+        }
+        arestas.add(new Aresta(getVertice(origem), getVertice(destino)));
+        numArestas++;
+    }
     public void imprimirGrafo()
     {
         System.out.println("Numero de vertices: " + numVertices);
@@ -58,13 +76,17 @@ public class Grafo
         for (int x = 0; x < numVertices; x++)
         {
             System.out.print("Vertice " + vertices.get(x).getRotulo() + ": ");
-            for (Vertice vertice : listaAdj.keySet())
-            {
-                System.out.print(listaAdj.values());
-            }
             System.out.println();
-
         }
+        if(numArestas > 1)
+        {
+            System.out.println("Arestas");
+            for (Aresta aresta: arestas) {
+                aresta.getAresta(aresta);
+            }
+        }
+
+
     }
 
 
