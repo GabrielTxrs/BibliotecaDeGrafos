@@ -28,18 +28,21 @@ public class Grafo
         arestas = new LinkedList<>();
         vertices = new LinkedList<>();
     }
-    public void adicionarVertice(int indice, String rotulo)
-    {
+    public void adicionarVertice(int indice, String rotulo) {
+
         vertices.add(new Vertice(indice, rotulo));
     }
     //JGraphT biblioteca de grafos em java
-    public void removerVertice(int indice)
-    {
-        if(numArestas > 1)
-        {
-            for (int i = 0; i < numVertices; i++)
-            {
+    public void removerVertice(int indice) {
+        if(numArestas > 1) {
+            for (int i = 0; i < numVertices; i++) {
                 while(listaAdj.get(i).remove(getVertice(indice)));
+            }
+            for (Aresta aresta : arestas) {
+                if (aresta.getVertice1().getIndice() == indice || aresta.getVertice2().getIndice() == indice)
+                {
+                    arestas.remove(aresta);
+                }
             }
         }
         vertices.remove(indice-1);
@@ -66,6 +69,18 @@ public class Grafo
         arestas.add(new Aresta(getVertice(origem), getVertice(destino)));
         numArestas++;
     }
+    public void adicionarAresta(int origem, int destino, String rotulo)
+    {
+        if(origem == destino) {
+            listaAdj.get(origem-1).add(getVertice(destino));
+        }
+        else {
+            listaAdj.get(origem-1).add(getVertice(destino));
+            listaAdj.get(destino-1).add(getVertice(origem));
+        }
+        arestas.add(new Aresta(getVertice(origem), getVertice(destino), rotulo));
+        numArestas++;
+    }
     public void imprimirGrafo()
     {
         System.out.println("Numero de vertices: " + numVertices);
@@ -76,11 +91,16 @@ public class Grafo
         for (int x = 0; x < numVertices; x++)
         {
             System.out.print("Vertice " + vertices.get(x).getRotulo() + ": ");
+            for(Vertice vertice: listaAdj.get(x))
+            {
+                System.out.print(vertice.getRotulo()+" ");
+            }
+
             System.out.println();
         }
         if(numArestas > 1)
         {
-            System.out.println("Arestas");
+            System.out.println("Arestas: ");
             for (Aresta aresta: arestas) {
                 aresta.getAresta(aresta);
             }

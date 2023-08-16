@@ -34,7 +34,13 @@ public class Aresta
 
     public void getAresta(Aresta aresta)
     {
-        System.out.println("v"+String.valueOf(aresta.getVertice1().getIndice())+"-"+"v"+String.valueOf(aresta.getVertice2().getIndice()));
+        if(rotulo == null) {
+            System.out.println("("+aresta.getVertice1().getRotulo()+"-"+aresta.getVertice2().getRotulo()+")");
+        }
+        else{
+            System.out.println(aresta.getRotulo()+" "+"("+aresta.getVertice1().getRotulo()+"-"+aresta.getVertice2().getRotulo()+")");
+        }
+
     }
 
 }
