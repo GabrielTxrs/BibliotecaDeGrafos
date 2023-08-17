@@ -9,14 +9,13 @@ public class Main
         grafo1.adicionarVertice(4,"v4");
         grafo1.adicionarVertice(5,"v5");
 
+
         grafo1.adicionarAresta(1,1, "a");
-        //grafo1.adicionarAresta(1,2, "b");
+        grafo1.adicionarAresta(1,2, "b");
         grafo1.adicionarAresta(2,3, "c");
         grafo1.adicionarAresta(3,4, "d");
         grafo1.adicionarAresta(4,5, "e");
-        grafo1.imprimirGrafo();
 
-        grafo1.removerVertice(1);
         grafo1.imprimirGrafo();
     }
 }

@@ -33,24 +33,42 @@ public class Grafo
         vertices.add(new Vertice(indice, rotulo));
     }
     //JGraphT biblioteca de grafos em java
-    public void removerVertice(int indice) {
-        if(numArestas > 1) {
-            for (int i = 0; i < numVertices; i++) {
-                while(listaAdj.get(i).remove(getVertice(indice)));
-            }
-            for (Aresta aresta : arestas) {
-                if (aresta.getVertice1().getIndice() == indice || aresta.getVertice2().getIndice() == indice)
+    public void removerVertice(String rotulo) {
+        if(numVertices > 1) {
+            List<Aresta> arestasremovidas = new LinkedList<>();
+            for (int i = 0; i < arestas.size(); i++) {
+                if ((arestas.get(i).getVertice1().getRotulo() == rotulo) || (arestas.get(i).getVertice2().getRotulo() == rotulo))
                 {
-                    arestas.remove(aresta);
+                    arestasremovidas.add(arestas.get(i));
                 }
             }
+            for (Aresta aresta : arestasremovidas) {
+                arestas.remove(aresta);
+                numArestas--;
+            }
+            for (int i = 0; i < numVertices; i++)
+            {
+                while(listaAdj.get(i).remove(getVertice(rotulo)));
+            }
         }
-        vertices.remove(indice-1);
+        vertices.remove(getVertice(rotulo));
         numVertices--;
     }
     public Vertice getVertice(int i)
     {
         return vertices.get(i-1);
+    }
+    public Vertice getVertice(String rotulo)
+    {
+        int marcador = -1;
+        for (int i = 0; i < numVertices ;i++)
+        {
+            if(vertices.get(i).getRotulo() == rotulo)
+            {
+                marcador = i;
+            }
+        }
+        return vertices.get(marcador);
     }
     public void imprimirVertice(int i)
     {
@@ -100,13 +118,12 @@ public class Grafo
         }
         if(numArestas > 1)
         {
-            System.out.println("Arestas: ");
+            System.out.println("\nArestas: ");
             for (Aresta aresta: arestas) {
                 aresta.getAresta(aresta);
             }
         }
-
-
+        System.out.println();
     }
 
 
