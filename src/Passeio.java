@@ -21,20 +21,21 @@ public class Passeio
     public Passeio(int numeroDeArestas, List<Vertice> vertex)
     {
         this.numeroDeArestas = numeroDeArestas;
-        this.verticesp = new LinkedList<>();
+        this.verticesp = vertex;
         this.arestasp = new LinkedList<>();
-
-        for (Vertice vertice : vertex)
-        {
-            verticesp.add(vertice);
-        }
 
     }
     public void imprimirPasseio()
     {
-        for (Aresta aresta : arestasp)
+        for (int i = 0; i < arestasp.size(); i++)
         {
-            System.out.print(aresta.getVertice1().getRotulo()+", "+aresta.getRotulo()+", ");
+            System.out.print(arestasp.get(i).getVertice1().getRotulo());
+            System.out.print(", ");
+            System.out.print(arestasp.get(i).getRotulo());
+            if(i != arestasp.size()-1)
+            {
+                System.out.print(", ");
+            }
         }
     }
 
