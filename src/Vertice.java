@@ -1,9 +1,13 @@
+import java.util.LinkedList;
+import java.util.List;
+
 public class Vertice
 {
     private String rotulo;
     private int indice;
     private int grau;
     private boolean flag;
+    private List<Vertice> verticesVizinhos;
 
     public Vertice(int indice)
     {
@@ -11,6 +15,7 @@ public class Vertice
         setRotulo("v"+String.valueOf(indice));
         setGrau(0);
         setFlag(false);
+        this.verticesVizinhos = new LinkedList<>();
     }
     public Vertice(int indice, String rotulo)
     {
@@ -18,6 +23,7 @@ public class Vertice
         setRotulo(rotulo);
         setGrau(0);
         setFlag(false);
+        this.verticesVizinhos = new LinkedList<>();
     }
     public String getRotulo() {
         return rotulo;
@@ -55,5 +61,24 @@ public class Vertice
 
     public void setFlag(boolean flag) {
         this.flag = flag;
+    }
+
+    public void addVerticeVizinho(Vertice vertice) {
+        verticesVizinhos.add(vertice);
+    }
+    public void removeVerticeVizinho(Vertice vertice) {
+        verticesVizinhos.remove(vertice);
+    }
+    public Vertice getVerticeVizinho(int i) {
+       return verticesVizinhos.get(i);
+    }
+    public Vertice getVerticeVizinho(String rotulo) {
+        int marcador = -1;
+        for (int i = 0; i < verticesVizinhos.size(); i++) {
+            if(verticesVizinhos.get(i).getRotulo() == rotulo) {
+                marcador = i;
+            }
+        }
+        return verticesVizinhos.get(marcador);
     }
 }

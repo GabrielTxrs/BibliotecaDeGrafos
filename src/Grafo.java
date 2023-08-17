@@ -79,10 +79,13 @@ public class Grafo
     {
         if(origem == destino) {
             listaAdj.get(origem-1).add(getVertice(destino));
+            getVertice(origem).addVerticeVizinho(getVertice(destino));
         }
         else {
             listaAdj.get(origem-1).add(getVertice(destino));
             listaAdj.get(destino-1).add(getVertice(origem));
+            getVertice(origem).addVerticeVizinho(getVertice(destino));
+            getVertice(destino).addVerticeVizinho(getVertice(origem));
         }
         arestas.add(new Aresta(getVertice(origem), getVertice(destino)));
         numArestas++;
@@ -91,14 +94,58 @@ public class Grafo
     {
         if(origem == destino) {
             listaAdj.get(origem-1).add(getVertice(destino));
+            getVertice(origem).addVerticeVizinho(getVertice(destino));
         }
         else {
             listaAdj.get(origem-1).add(getVertice(destino));
             listaAdj.get(destino-1).add(getVertice(origem));
+            getVertice(origem).addVerticeVizinho(getVertice(destino));
+            getVertice(destino).addVerticeVizinho(getVertice(origem));
         }
         arestas.add(new Aresta(getVertice(origem), getVertice(destino), rotulo));
         numArestas++;
     }
+    public void removerAresta(int origem, int destino)
+    {
+        listaAdj.get(origem-1).remove(getVertice(destino));
+        listaAdj.get(destino-1).remove(getVertice(origem));
+
+        getVertice(origem).removeVerticeVizinho(getVertice(destino));
+        getVertice(destino).removeVerticeVizinho(getVertice(origem));
+
+        int marcador = -1;
+        for (int i = 0; i < arestas.size();i++)
+        {
+            if(arestas.get(i).getVertice1().getIndice() == origem && arestas.get(i).getVertice2().getIndice() == destino)
+            {
+                marcador = i;
+                break;
+            }
+        }
+        arestas.remove(marcador);
+        numArestas--;
+    }
+
+    public void removerAresta(String rotulo)
+    {
+        int origem = -1;
+        int destino = -1;
+        for (Aresta aresta : arestas)
+        {
+            if (aresta.getRotulo() == rotulo)
+            {
+                origem  = aresta.getVertice1().getIndice();
+                destino = aresta.getVertice2().getIndice();
+                arestas.remove(aresta);
+                break;
+            }
+        }
+        listaAdj.get(origem-1).remove(getVertice(destino));
+        listaAdj.get(destino-1).remove(getVertice(origem));
+        numArestas--;
+    }
+
+
     public void imprimirGrafo()
     {
         System.out.println("Numero de vertices: " + numVertices);
@@ -116,7 +163,7 @@ public class Grafo
 
             System.out.println();
         }
-        if(numArestas > 1)
+        if(numArestas > 0)
         {
             System.out.println("\nArestas: ");
             for (Aresta aresta: arestas) {
@@ -125,10 +172,4 @@ public class Grafo
         }
         System.out.println();
     }
-
-
-
-
-
-
 }
