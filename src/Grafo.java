@@ -22,7 +22,7 @@ public class Grafo
             listaAdj = new LinkedList<>();
             for (int i = 0; i < numVertices; i++)
             {
-                listaAdj.add(i,new LinkedList<>());
+                listaAdj.add(i, new LinkedList<>());
             }
         }
         arestas = new LinkedList<>();
@@ -78,6 +78,7 @@ public class Grafo
     public void adicionarAresta(int origem, int destino)
     {
         if(origem == destino) {
+
             listaAdj.get(origem-1).add(getVertice(destino));
             getVertice(origem).addVerticeVizinho(getVertice(destino));
         }
@@ -142,9 +143,12 @@ public class Grafo
         }
         listaAdj.get(origem-1).remove(getVertice(destino));
         listaAdj.get(destino-1).remove(getVertice(origem));
+        if (origem == -1 || destino == -1)
+        {
+            throw new IllegalArgumentException("Aresta nao existe.");
+        }
         numArestas--;
     }
-
 
     public void imprimirGrafo()
     {
@@ -172,7 +176,25 @@ public class Grafo
         }
         System.out.println();
     }
-    public Passeio criarPasseio(List<Aresta> arestasPasseio) {
+    public Passeio criarPasseioVertice(List<Vertice> verticesPasseio) {
+
+        int saida = 0;
+
+        for(Vertice verticePasseio : verticesPasseio)
+        {
+            if(vertices.get(saida).getRotulo() == verticePasseio.getRotulo() || vertices.get(saida).getRotulo() == verticePasseio.getRotulo()) {
+                saida++;
+            }
+        }
+        if(saida == verticesPasseio.size()) {
+            return new Passeio(verticesPasseio.size(), verticesPasseio);
+        }
+        else {
+            System.out.println("Passeio com Vertices Invalidos");
+            return new Passeio();
+        }
+    }
+    public Passeio criarPasseioAresta(List<Aresta> arestasPasseio) {
         int saida = 0;
 
         for(Aresta arestaPasseio : arestasPasseio)
@@ -187,8 +209,6 @@ public class Grafo
         else {
             System.out.println("Passeio com Vertices Invalidos");
             return new Passeio();
-
         }
-
     }
 }

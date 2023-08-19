@@ -19,19 +19,35 @@ public class Main
         grafo1.adicionarAresta(4,5, "d");
 
 
-        List<Aresta> passeio = new LinkedList<>();
+        List<Aresta> passeioAresta = new LinkedList<>();
 
-        passeio.add(new Aresta(grafo1.getVertice(1),grafo1.getVertice(2),"a"));
-        passeio.add(new Aresta(grafo1.getVertice(2),grafo1.getVertice(3),"b"));
-        passeio.add(new Aresta(grafo1.getVertice(3),grafo1.getVertice(4),"c"));
-        passeio.add(new Aresta(grafo1.getVertice(4),grafo1.getVertice(5),"d"));
+        passeioAresta.add(new Aresta(grafo1.getVertice(1),grafo1.getVertice(2),"a"));
+        passeioAresta.add(new Aresta(grafo1.getVertice(2),grafo1.getVertice(3),"b"));
+        passeioAresta.add(new Aresta(grafo1.getVertice(3),grafo1.getVertice(4),"c"));
+        passeioAresta.add(new Aresta(grafo1.getVertice(4),grafo1.getVertice(5),"d"));
 
-        Passeio passeio1 = new Passeio(passeio, 4);
+        Passeio passeio1 = new Passeio(passeioAresta, 4);
+        passeio1.obterSecaoPasseio(0,2).imprimirPasseio();
 
-        grafo1.criarPasseio(passeio).imprimirPasseio();
+        //passeio1.inverterPasseio();
+/*
+        grafo1.criarPasseioAresta(passeioAresta).imprimirPasseio();
+
+        System.out.println("\nPasseio Aresta");
+
+        List<Vertice> passeioVertice = new LinkedList<>();
+
+        passeioVertice.add(new Vertice(1, "v1"));
+        passeioVertice.add(new Vertice(2, "v2"));
+        passeioVertice.add(new Vertice(3, "v3"));
+        passeioVertice.add(new Vertice(4, "v4"));
+        passeioVertice.add(new Vertice(5, "v5"));
+
+        grafo1.criarPasseioVertice(passeioVertice).imprimirPasseio();
+*/
+
 
         //passeio1.imprimirPasseio();
-
 
     }
 }
