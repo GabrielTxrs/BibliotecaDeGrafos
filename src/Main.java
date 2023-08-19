@@ -18,7 +18,6 @@ public class Main
         grafo1.adicionarAresta(3,4, "c");
         grafo1.adicionarAresta(4,5, "d");
 
-        grafo1.imprimirGrafo();
 
         List<Aresta> passeio = new LinkedList<>();
 
@@ -28,7 +27,10 @@ public class Main
         passeio.add(new Aresta(grafo1.getVertice(4),grafo1.getVertice(5),"d"));
 
         Passeio passeio1 = new Passeio(passeio, 4);
-        passeio1.imprimirPasseio();
+
+        grafo1.criarPasseio(passeio).imprimirPasseio();
+
+        //passeio1.imprimirPasseio();
 
 
     }

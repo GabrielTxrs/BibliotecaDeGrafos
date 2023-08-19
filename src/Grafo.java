@@ -32,7 +32,7 @@ public class Grafo
 
         vertices.add(new Vertice(indice, rotulo));
     }
-    //JGraphT biblioteca de grafos em java
+
     public void removerVertice(String rotulo) {
         if(numVertices > 1) {
             List<Aresta> arestasremovidas = new LinkedList<>();
@@ -171,5 +171,24 @@ public class Grafo
             }
         }
         System.out.println();
+    }
+    public Passeio criarPasseio(List<Aresta> arestasPasseio) {
+        int saida = 0;
+
+        for(Aresta arestaPasseio : arestasPasseio)
+        {
+            if((arestas.get(saida).getVertice1().getRotulo() == arestaPasseio.getVertice1().getRotulo()) || (arestas.get(saida).getVertice1().getRotulo() == arestaPasseio.getVertice2().getRotulo())) {
+                saida++;
+            }
+        }
+        if(saida == arestasPasseio.size()) {
+            return new Passeio(arestasPasseio, arestasPasseio.size());
+        }
+        else {
+            System.out.println("Passeio com Vertices Invalidos");
+            return new Passeio();
+
+        }
+
     }
 }

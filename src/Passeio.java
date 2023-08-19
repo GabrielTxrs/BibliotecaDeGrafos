@@ -7,6 +7,13 @@ public class Passeio
     private List<Aresta> arestasp;
     private int numeroDeArestas;
 
+    public Passeio()
+    {
+        this.verticesp = null;
+        this.arestasp = null;
+        this.numeroDeArestas = 0;
+
+    }
     public Passeio(List<Aresta> edges, int numeroDeArestas)
     {
         this.numeroDeArestas = numeroDeArestas;
