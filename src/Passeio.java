@@ -1,4 +1,4 @@
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Passeio
@@ -9,15 +9,14 @@ public class Passeio
 
     public Passeio()
     {
-        this.verticesp = new LinkedList<>();
-        this.arestasp = new LinkedList<>();
+        this.verticesp = new ArrayList<>();
+        this.arestasp = new ArrayList<>();
         this.numeroDeArestas = 0;
-
     }
     public Passeio(List<Aresta> edges, int numeroDeArestas)
     {
         this.numeroDeArestas = numeroDeArestas;
-        this.verticesp = new LinkedList<>();
+        this.verticesp = new ArrayList<>();
         this.arestasp = edges;
         for (Aresta edge : edges)
         {
@@ -29,8 +28,7 @@ public class Passeio
     {
         this.numeroDeArestas = numeroDeArestas;
         this.verticesp = vertex;
-        this.arestasp = new LinkedList<>();
-
+        this.arestasp = new ArrayList<>();
     }
     public void inverterPasseio()
     {
@@ -50,9 +48,9 @@ public class Passeio
             }
         }
         else {
-            for (int i = verticesp.size()-1; i > -1; i++)
+            for (int i = verticesp.size()-1; i > -1; i--)
             {
-                verticesp.get(i).getRotulo();
+                System.out.print(verticesp.get(i).getRotulo()+" ");
             }
 
         }

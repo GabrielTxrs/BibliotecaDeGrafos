@@ -1,5 +1,5 @@
-import java.util.LinkedList;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Vertice
 {
@@ -15,7 +15,7 @@ public class Vertice
         setRotulo("v"+String.valueOf(indice));
         setGrau(0);
         setFlag(false);
-        this.verticesVizinhos = new LinkedList<>();
+        this.verticesVizinhos = new ArrayList<>();
     }
     public Vertice(int indice, String rotulo)
     {
@@ -23,8 +23,9 @@ public class Vertice
         setRotulo(rotulo);
         setGrau(0);
         setFlag(false);
-        this.verticesVizinhos = new LinkedList<>();
+        this.verticesVizinhos = new ArrayList<>();
     }
+    public List<Vertice> verticesVizinhos(){return verticesVizinhos;}
     public String getRotulo() {
         return rotulo;
     }
@@ -63,11 +64,12 @@ public class Vertice
         this.flag = flag;
     }
 
-    public void addVerticeVizinho(Vertice vertice) {
-        verticesVizinhos.add(vertice);
+    public boolean addVerticeVizinho(Vertice vertice) {
+        return verticesVizinhos.add(vertice);
     }
-    public void removeVerticeVizinho(Vertice vertice) {
-        verticesVizinhos.remove(vertice);
+    public boolean removeVerticeVizinho(Vertice vertice)
+    {
+        return verticesVizinhos.remove(vertice);
     }
     public Vertice getVerticeVizinho(int i) {
        return verticesVizinhos.get(i);
@@ -75,9 +77,13 @@ public class Vertice
     public Vertice getVerticeVizinho(String rotulo) {
         int marcador = -1;
         for (int i = 0; i < verticesVizinhos.size(); i++) {
+
             if(verticesVizinhos.get(i).getRotulo() == rotulo) {
                 marcador = i;
             }
+        }
+        if (marcador == -1) {
+            throw new IllegalArgumentException("Rotulo invalido");
         }
         return verticesVizinhos.get(marcador);
     }

@@ -6,7 +6,6 @@ public class Grafo
     private List<Vertice> vertices;
     private int numArestas;
     private List<Aresta> arestas;
-    private List<List<Vertice>> listaAdj;
     private boolean matriz;
     private int[][] matrizAdj;
 
@@ -15,28 +14,25 @@ public class Grafo
         this.numArestas = 0;
         this.numVertices = numVertices;
         this.matriz = matriz;
-        if (matriz){
+        if (matriz) {
             matrizAdj = new int[numVertices][numVertices];
         }
-        else {
-            listaAdj = new LinkedList<>();
-            for (int i = 0; i < numVertices; i++)
-            {
-                listaAdj.add(i, new LinkedList<>());
-            }
-        }
-        arestas = new LinkedList<>();
-        vertices = new LinkedList<>();
+        arestas = new ArrayList<>();
+        vertices = new ArrayList<>();
     }
     public void adicionarVertice(int indice, String rotulo) {
 
         vertices.add(new Vertice(indice, rotulo));
     }
 
-    public void removerVertice(String rotulo) {
+    public void removerVertice(String rotulo)
+    {
         if(numVertices > 1) {
-            List<Aresta> arestasremovidas = new LinkedList<>();
+
+            List<Aresta> arestasremovidas = new ArrayList<>();
+
             for (int i = 0; i < arestas.size(); i++) {
+
                 if ((arestas.get(i).getVertice1().getRotulo() == rotulo) || (arestas.get(i).getVertice2().getRotulo() == rotulo))
                 {
                     arestasremovidas.add(arestas.get(i));
@@ -46,9 +42,14 @@ public class Grafo
                 arestas.remove(aresta);
                 numArestas--;
             }
-            for (int i = 0; i < numVertices; i++)
+
+            for (int i = 0; i < vertices.size(); i++)
             {
-                while(listaAdj.get(i).remove(getVertice(rotulo)));
+                int j = 0;
+                while(vertices.get(i).removeVerticeVizinho(getVertice(rotulo)))
+                {
+                    j++;
+                }
             }
         }
         vertices.remove(getVertice(rotulo));
@@ -78,13 +79,9 @@ public class Grafo
     public void adicionarAresta(int origem, int destino)
     {
         if(origem == destino) {
-
-            listaAdj.get(origem-1).add(getVertice(destino));
             getVertice(origem).addVerticeVizinho(getVertice(destino));
         }
         else {
-            listaAdj.get(origem-1).add(getVertice(destino));
-            listaAdj.get(destino-1).add(getVertice(origem));
             getVertice(origem).addVerticeVizinho(getVertice(destino));
             getVertice(destino).addVerticeVizinho(getVertice(origem));
         }
@@ -94,12 +91,9 @@ public class Grafo
     public void adicionarAresta(int origem, int destino, String rotulo)
     {
         if(origem == destino) {
-            listaAdj.get(origem-1).add(getVertice(destino));
             getVertice(origem).addVerticeVizinho(getVertice(destino));
         }
         else {
-            listaAdj.get(origem-1).add(getVertice(destino));
-            listaAdj.get(destino-1).add(getVertice(origem));
             getVertice(origem).addVerticeVizinho(getVertice(destino));
             getVertice(destino).addVerticeVizinho(getVertice(origem));
         }
@@ -108,9 +102,6 @@ public class Grafo
     }
     public void removerAresta(int origem, int destino)
     {
-        listaAdj.get(origem-1).remove(getVertice(destino));
-        listaAdj.get(destino-1).remove(getVertice(origem));
-
         getVertice(origem).removeVerticeVizinho(getVertice(destino));
         getVertice(destino).removeVerticeVizinho(getVertice(origem));
 
@@ -141,12 +132,14 @@ public class Grafo
                 break;
             }
         }
-        listaAdj.get(origem-1).remove(getVertice(destino));
-        listaAdj.get(destino-1).remove(getVertice(origem));
-        if (origem == -1 || destino == -1)
-        {
+        if (origem == -1 || destino == -1) {
             throw new IllegalArgumentException("Aresta nao existe.");
         }
+        else {
+            getVertice(origem).removeVerticeVizinho(getVertice(destino));
+            getVertice(destino).removeVerticeVizinho(getVertice(origem));
+        }
+
         numArestas--;
     }
 
@@ -160,7 +153,7 @@ public class Grafo
         for (int x = 0; x < numVertices; x++)
         {
             System.out.print("Vertice " + vertices.get(x).getRotulo() + ": ");
-            for(Vertice vertice: listaAdj.get(x))
+            for(Vertice vertice: vertices.get(x).verticesVizinhos())
             {
                 System.out.print(vertice.getRotulo()+" ");
             }
@@ -179,16 +172,29 @@ public class Grafo
     public Passeio criarPasseioVertice(List<Vertice> verticesPasseio) {
 
         int saida = 0;
-
         for(Vertice verticePasseio : verticesPasseio)
         {
             if(vertices.get(saida).getRotulo() == verticePasseio.getRotulo() || vertices.get(saida).getRotulo() == verticePasseio.getRotulo()) {
                 saida++;
             }
         }
+        // teste para saber se os vertices passados estao contidos no grafo
         if(saida == verticesPasseio.size()) {
-            return new Passeio(verticesPasseio.size(), verticesPasseio);
+            List<Aresta> arestasPasseio = new ArrayList<>();
+
+            for(Vertice vertice : verticesPasseio)
+            {
+                for (Aresta aresta : arestas)
+                {
+                    if((aresta.getVertice1().getRotulo() == vertice.getRotulo()) || (aresta.getVertice2().getRotulo() == vertice.getRotulo()))
+                    {
+                        arestasPasseio.add(aresta);
+                    }
+                }
+            }
+            return new Passeio(arestasPasseio, arestasPasseio.size());
         }
+
         else {
             System.out.println("Passeio com Vertices Invalidos");
             return new Passeio();
