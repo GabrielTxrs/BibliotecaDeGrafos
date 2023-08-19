@@ -18,10 +18,16 @@ public class Passeio
         this.numeroDeArestas = numeroDeArestas;
         this.verticesp = new ArrayList<>();
         this.arestasp = edges;
-        for (Aresta edge : edges)
+        for (int i = 0; i < edges.size(); i++)
         {
-            this.verticesp.add(edge.getVertice1());
-            this.verticesp.add(edge.getVertice2());
+            if(!verticesp.contains(edges.get(i).getVertice1()));
+            {
+                verticesp.add(edges.get(i).getVertice1());
+            }
+            if(!verticesp.contains(edges.get(i).getVertice2()));
+            {
+                verticesp.add(edges.get(i).getVertice1());
+            }
         }
     }
     public Passeio(int numeroDeArestas, List<Vertice> vertex)
@@ -52,8 +58,8 @@ public class Passeio
             {
                 System.out.print(verticesp.get(i).getRotulo()+" ");
             }
-
         }
+        System.out.println();
     }
     public Passeio obterSecaoPasseio( int i, int j) {
         if (i < 0 || j < 0 || i > j || j >= arestasp.size()) {
@@ -65,7 +71,7 @@ public class Passeio
         int subNumeroDeArestas = j - i + 1;
 
         return new Passeio(subArestas, subNumeroDeArestas);
-    }
+        }
     public void imprimirPasseio()
     {
         if(arestasp.size() > 1)
@@ -97,5 +103,6 @@ public class Passeio
                 }
             }
         }
+        System.out.println();
     }
 }

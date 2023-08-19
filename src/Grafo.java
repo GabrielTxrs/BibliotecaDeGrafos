@@ -201,8 +201,8 @@ public class Grafo
         }
     }
     public Passeio criarPasseioAresta(List<Aresta> arestasPasseio) {
-        int saida = 0;
 
+        int saida = 0;
         for(Aresta arestaPasseio : arestasPasseio)
         {
             if((arestas.get(saida).getVertice1().getRotulo() == arestaPasseio.getVertice1().getRotulo()) || (arestas.get(saida).getVertice1().getRotulo() == arestaPasseio.getVertice2().getRotulo())) {
