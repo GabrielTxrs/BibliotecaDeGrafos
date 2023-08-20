@@ -262,26 +262,26 @@ public class Grafo
 
         passeio.remove(passeio.size() - 1);
     }
-    public boolean isConexo() {
-        // Modifica o flag de todos os vértices
-        for (Vertice vertice : vertices) {
-            vertice.setFlag(false);
-        }
-
-        // Escolhe um vértice inicial
-        Vertice verticeInicial = vertices.get(0);
-
-        // Realiza a busca em profundidade (DFS) para marcar vértices alcançáveis
-        dfsConexo(verticeInicial);
-
-        // Verifica se todos os vértices foram marcados como alcançáveis
-        for (Vertice vertice : vertices) {
-            if (!vertice.getFlag()) {
-                return false;
+    public boolean isCiclic(int verticeAtual, int pai)
+    {
+        getVertice(verticeAtual).setFlag(true);
+        for (Vertice verticeVizinho : getVertice(verticeAtual).verticesVizinhos())
+        {
+            if(verticeVizinho.getFlag())
+            {
+                if(verticeVizinho.getRotulo() == getVertice(verticeAtual).getRotulo() || verticeVizinho.getRotulo() != getVertice(pai).getRotulo())
+                {
+                    return true;
+                }
+            } else if (isCiclic(verticeVizinho.getIndice(), pai)) {
+                return true;
             }
         }
-        return true;
+        return false;
     }
+
+
+
     private void dfsConexo(Vertice vertice) {
         vertice.setFlag(true);
 

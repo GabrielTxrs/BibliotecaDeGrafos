@@ -78,19 +78,31 @@ public class Main
 
         System.out.println("\nExercicio 5.7");
 
-        Grafo grafo3 = new Grafo(3, false);
-
+        Grafo grafo3 = new Grafo(3,false);
         grafo3.adicionarVertice(1,"v1");
         grafo3.adicionarVertice(2,"v2");
         grafo3.adicionarVertice(3,"v3");
-        grafo3.adicionarVertice(4,"v4");
 
-        grafo3.adicionarAresta(1,2,"a");
+        grafo3.adicionarAresta(1,2);
+        grafo3.adicionarAresta(2,3);
+        grafo3.adicionarAresta(3,1);
 
-        grafo3.adicionarAresta(3,4,"b");
+        System.out.println(grafo3.isCiclic(1,1));
+        //
+
+/*
+        Grafo grafo4 = new Grafo(3, false);
+
+        grafo4.adicionarVertice(1,"v1");
+        grafo4.adicionarVertice(2,"v2");
+        grafo4.adicionarVertice(3,"v3");
+        grafo4.adicionarVertice(4,"v4");
+
+        grafo4.adicionarAresta(1,2,"a");
+        grafo4.adicionarAresta(3,4,"b");
 
         System.out.println("\nExercicio 5.12 ");
-        if(grafo3.isConexo()){
+        if(grafo4.isConexo()){
             System.out.println("O grafo 3 e conexo");
         }
         else {
@@ -101,7 +113,7 @@ public class Main
         }
         else {
             System.out.println("O Grado 2 nao e conexo");
-        }
+        }*/
 
 
     }
