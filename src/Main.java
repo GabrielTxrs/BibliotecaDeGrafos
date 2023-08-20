@@ -5,7 +5,7 @@ public class Main
 {
     public static void main(String[] args)
     {
-        /*
+/*
         Grafo grafo1 = new Grafo(5,false);
 
         grafo1.adicionarVertice(1,"v1");
@@ -45,8 +45,8 @@ public class Main
 
         System.out.println("\ni = 2\nj = 3");
         passeio1.obterSecaoPasseio(2,3).imprimirPasseio();
-
-        */
+*/
+        System.out.println("\nExercicio 5.5 e 5.6, pois nossa funcao sempre gera um caminho\ne todo caminho e um passeio ");
 
         Grafo grafo2 = new Grafo(5, false);
 
@@ -56,18 +56,26 @@ public class Main
         grafo2.adicionarVertice(4,"v4");
         grafo2.adicionarVertice(5,"v5");
 
-        grafo2.adicionarAresta(1,2,"a");
+        grafo2.adicionarAresta(1,2,"a1");
 
-        grafo2.adicionarAresta(1,3,"b");
+        grafo2.adicionarAresta(2,3,"a2");
 
-        grafo2.adicionarAresta(1,4,"c");
+        grafo2.adicionarAresta(3,4,"a3");
 
-        grafo2.adicionarAresta(3,5,"d");
+        grafo2.adicionarAresta(4,5,"a4");
 
+        grafo2.adicionarAresta(5,1,"a5");
 
-        //grafo2.imprimirGrafo();
+        grafo2.adicionarAresta(5,2,"a6");
 
-        grafo2.buscaEmProfundidade(1,3).imprimirPasseio();
+        grafo2.adicionarAresta(4,2,"a7");
+
+        System.out.println("\nv = 1\nx = 4");
+        grafo2.buscaEmProfundidade(1,4).imprimirPasseio();
+        System.out.println("\nv = 5\nx = 1");
+
+        grafo2.buscaEmProfundidade(5,1).imprimirPasseio();
+        System.out.println("\nExercicio 5.7");
 
 
 

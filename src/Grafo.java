@@ -230,28 +230,34 @@ public class Grafo
         }
  }
     public Passeio buscaEmProfundidade(int origem, int destino) {
+        boolean[] visitados = new boolean[numVertices];
+        List<Vertice> passeio = new ArrayList<>();
+        Passeio result = new Passeio();
 
-        Passeio passeio = new Passeio();
+        buscaAuxiliar(origem, destino, visitados, passeio, result);
 
-        if(getVertice(origem).getRotulo() == getVertice(destino).getRotulo())
-        {
-            passeio.addVerticePasseio(getVertice(origem));
-            //System.out.println(getVertice(origem).getRotulo());
-            return passeio;
+        return result;
+    }
+
+    private void buscaAuxiliar(int verticeAtual, int destino, boolean[] visitados, List<Vertice> passeio, Passeio saida) {
+        visitados[verticeAtual - 1] = true; // -1 pois o indice do array e diferente do indice passado no parametro
+        passeio.add(getVertice(verticeAtual));
+
+        if (verticeAtual == destino) {
+            saida.addAllVerticesPasseio(passeio);
+            return;
         }
-        //getVertice(origem).setFlag(true);
-        //System.out.print(getVertice(origem).getRotulo() + " ");
 
-        for(Vertice vertex : getVertice(origem).verticesVizinhos())
-        {
-            passeio.addAllVerticesPasseio(buscaEmProfundidade(vertex.getIndice(),vertex.getIndice()).getVerticesPasseio());
-            if(passeio.getTamanho() != 0)
-            {
-                passeio.addVerticePasseio(vertex);
-                //System.out.println(vertex.getRotulo());
-                return passeio;
+        for (Vertice verticeVizinho : getVertice(verticeAtual).verticesVizinhos()) {
+
+            if (!visitados[verticeVizinho.getIndice() - 1]) {
+
+                buscaAuxiliar(verticeVizinho.getIndice(), destino, visitados, passeio, saida);
             }
         }
-        return null;
+
+        passeio.remove(passeio.size() - 1);
     }
+
+
 }
