@@ -8,6 +8,8 @@ public class Vertice
     private int grau;
     private boolean flag;
     private List<Vertice> verticesVizinhos;
+    private int profundidadeEntrada;
+    private int profundidadeSaida;
 
     public Vertice(int indice)
     {
@@ -16,6 +18,8 @@ public class Vertice
         setGrau(0);
         setFlag(false);
         this.verticesVizinhos = new ArrayList<>();
+        setProfundidadeEntrada(1);
+        setProfundidadeSaida(1);
     }
     public Vertice(int indice, String rotulo)
     {
@@ -24,6 +28,8 @@ public class Vertice
         setGrau(0);
         setFlag(false);
         this.verticesVizinhos = new ArrayList<>();
+        setProfundidadeEntrada(1);
+        setProfundidadeSaida(1);
     }
     public List<Vertice> verticesVizinhos(){return verticesVizinhos;}
     public String getRotulo() {
@@ -63,6 +69,15 @@ public class Vertice
     public void setFlag(boolean flag) {
         this.flag = flag;
     }
+    public void setProfundidadeEntrada(int profundidadeEntrada) {
+        this.profundidadeEntrada = profundidadeEntrada;
+    }
+
+    public void setProfundidadeSaida(int profundidadeSaida) {
+        this.profundidadeSaida = profundidadeSaida;
+    }
+    public int getProfundidadeEntrada(){return profundidadeEntrada;}
+    public int getProfundidadeSaida(){return profundidadeSaida;}
 
     public boolean addVerticeVizinho(Vertice vertice) {
         return verticesVizinhos.add(vertice);

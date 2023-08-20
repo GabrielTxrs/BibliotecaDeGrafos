@@ -5,17 +5,17 @@ public class Passeio
 {
     private List<Vertice> verticesp;
     private List<Aresta> arestasp;
-    private int numeroDeArestas;
+    private int tamanho;
 
     public Passeio()
     {
         this.verticesp = new ArrayList<>();
         this.arestasp = new ArrayList<>();
-        this.numeroDeArestas = 0;
+        this.tamanho = 0;
     }
-    public Passeio(List<Aresta> edges, int numeroDeArestas)
+    public Passeio(List<Aresta> edges, int tamanho)
     {
-        this.numeroDeArestas = numeroDeArestas;
+        this.tamanho = tamanho;
         this.verticesp = new ArrayList<>();
         this.arestasp = edges;
         for (int i = 0; i < edges.size(); i++)
@@ -30,11 +30,23 @@ public class Passeio
             }
         }
     }
-    public Passeio(int numeroDeArestas, List<Vertice> vertex)
+    public Passeio(int tamanho, List<Vertice> vertex)
     {
-        this.numeroDeArestas = numeroDeArestas;
+        this.tamanho = tamanho;
         this.verticesp = vertex;
         this.arestasp = new ArrayList<>();
+    }
+    public int getTamanho(){return tamanho;}
+    public void addVerticePasseio(Vertice vertice)
+    {
+        verticesp.add(vertice);
+        tamanho++;
+    }
+    public List<Vertice> getVerticesPasseio(){return verticesp;}
+    public void addAllVerticesPasseio(List<Vertice> vertices)
+    {
+        verticesp.addAll(vertices);
+        tamanho += vertices.size();
     }
     public void inverterPasseio()
     {
@@ -62,8 +74,8 @@ public class Passeio
         System.out.println();
     }
     public Passeio obterSecaoPasseio( int i, int j) {
-        if (i < 0 || j < 0 || i > j || j >= arestasp.size()) {
-            // Invalid input or positions
+        if (i < 0 || j < 0 || i > j || j >= arestasp.size())
+        {
             return null;
         }
 

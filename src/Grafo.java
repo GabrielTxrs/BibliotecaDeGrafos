@@ -217,4 +217,41 @@ public class Grafo
             return new Passeio();
         }
     }
+ public void buscaEmProfundidade(int vertice) {
+        getVertice(vertice).setFlag(true);
+        System.out.print(getVertice(vertice).getRotulo() + " ");
+
+        for(Vertice vertex : getVertice(vertice).verticesVizinhos())
+        {
+            if(!vertex.getFlag())
+            {
+                buscaEmProfundidade(vertex.getIndice());
+            }
+        }
+ }
+    public Passeio buscaEmProfundidade(int origem, int destino) {
+
+        Passeio passeio = new Passeio();
+
+        if(getVertice(origem).getRotulo() == getVertice(destino).getRotulo())
+        {
+            passeio.addVerticePasseio(getVertice(origem));
+            //System.out.println(getVertice(origem).getRotulo());
+            return passeio;
+        }
+        //getVertice(origem).setFlag(true);
+        //System.out.print(getVertice(origem).getRotulo() + " ");
+
+        for(Vertice vertex : getVertice(origem).verticesVizinhos())
+        {
+            passeio.addAllVerticesPasseio(buscaEmProfundidade(vertex.getIndice(),vertex.getIndice()).getVerticesPasseio());
+            if(passeio.getTamanho() != 0)
+            {
+                passeio.addVerticePasseio(vertex);
+                //System.out.println(vertex.getRotulo());
+                return passeio;
+            }
+        }
+        return null;
+    }
 }

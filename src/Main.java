@@ -5,6 +5,7 @@ public class Main
 {
     public static void main(String[] args)
     {
+        /*
         Grafo grafo1 = new Grafo(5,false);
 
         grafo1.adicionarVertice(1,"v1");
@@ -44,6 +45,30 @@ public class Main
 
         System.out.println("\ni = 2\nj = 3");
         passeio1.obterSecaoPasseio(2,3).imprimirPasseio();
+
+        */
+
+        Grafo grafo2 = new Grafo(5, false);
+
+        grafo2.adicionarVertice(1,"v1");
+        grafo2.adicionarVertice(2,"v2");
+        grafo2.adicionarVertice(3,"v3");
+        grafo2.adicionarVertice(4,"v4");
+        grafo2.adicionarVertice(5,"v5");
+
+        grafo2.adicionarAresta(1,2,"a");
+
+        grafo2.adicionarAresta(1,3,"b");
+
+        grafo2.adicionarAresta(1,4,"c");
+
+        grafo2.adicionarAresta(3,5,"d");
+
+
+        //grafo2.imprimirGrafo();
+
+        grafo2.buscaEmProfundidade(1,3).imprimirPasseio();
+
 
 
     }
