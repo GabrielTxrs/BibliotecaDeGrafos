@@ -217,7 +217,10 @@ public class Grafo
             return new Passeio();
         }
     }
- public void buscaEmProfundidade(int vertice) {
+    public void buscaEmProfundidade(int vertice)
+    {
+        boolean[] visitados = new boolean[numVertices];
+
         getVertice(vertice).setFlag(true);
         System.out.print(getVertice(vertice).getRotulo() + " ");
 
@@ -228,7 +231,7 @@ public class Grafo
                 buscaEmProfundidade(vertex.getIndice());
             }
         }
- }
+    }
     public Passeio buscaEmProfundidade(int origem, int destino) {
         boolean[] visitados = new boolean[numVertices];
         List<Vertice> passeio = new ArrayList<>();
@@ -240,6 +243,7 @@ public class Grafo
     }
 
     private void buscaAuxiliar(int verticeAtual, int destino, boolean[] visitados, List<Vertice> passeio, Passeio saida) {
+
         visitados[verticeAtual - 1] = true; // -1 pois o indice do array e diferente do indice passado no parametro
         passeio.add(getVertice(verticeAtual));
 
@@ -258,6 +262,36 @@ public class Grafo
 
         passeio.remove(passeio.size() - 1);
     }
+    public boolean isConexo() {
+        // Modifica o flag de todos os vértices
+        for (Vertice vertice : vertices) {
+            vertice.setFlag(false);
+        }
 
+        // Escolhe um vértice inicial
+        Vertice verticeInicial = vertices.get(0);
+
+        // Realiza a busca em profundidade (DFS) para marcar vértices alcançáveis
+        dfsConexo(verticeInicial);
+
+        // Verifica se todos os vértices foram marcados como alcançáveis
+        for (Vertice vertice : vertices) {
+            if (!vertice.getFlag()) {
+                return false;
+            }
+        }
+        return true;
+    }
+    private void dfsConexo(Vertice vertice) {
+        vertice.setFlag(true);
+
+        for (Vertice vizinho : vertice.verticesVizinhos()) {
+
+            if (!vizinho.getFlag()) {
+
+                dfsConexo(vizinho);
+            }
+        }
+    }
 
 }
