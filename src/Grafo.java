@@ -218,6 +218,7 @@ public class Grafo
     private int contadorEntrada = 1;
     private int contadorSaida = 1;
 
+
     public Passeio buscaEmProfundidade(int origem, int destino) {
 
         boolean[] visitados = new boolean[numVertices];
@@ -229,7 +230,7 @@ public class Grafo
         return saida;
     }
 
-    private void buscaAuxiliar(int verticeAtual, int destino, boolean[] visitados, List<Vertice> passeio, Passeio saida) {
+    private void buscaAuxiliar(int verticeAtual, int destino,  boolean[] visitados, List<Vertice> passeio, Passeio saida) {
 
         visitados[verticeAtual - 1] = true; // -1 pois o indice do array e diferente do indice passado no parametro
         getVertice(verticeAtual).setProfundidadeEntrada(contadorEntrada++);
@@ -269,33 +270,41 @@ public class Grafo
         }
         return false;
     }
-    public boolean ciclo(int verticeAtual, int pai)
+
+    public Passeio acharCiclo(int origem, int pai)
+    {
+        Passeio ciclo = new Passeio();
+
+        acharCicloAux(origem, pai, ciclo);
+
+        return ciclo;
+    }
+    private void acharCicloAux(int verticeAtual, int pai, Passeio ciclo)
     {
         getVertice(verticeAtual).setFlag(true);
-        System.out.print(getVertice(verticeAtual).getRotulo()+" ");
-        for (int i = 0 ; i < getVertice(verticeAtual).verticesVizinhos().size(); i++)
-        {
-            if (getVertice(verticeAtual).verticesVizinhos().get(i).getFlag())
-            {
-                if (getVertice(verticeAtual).verticesVizinhos().get(i).getRotulo() == getVertice(verticeAtual).getRotulo() || getVertice(verticeAtual).verticesVizinhos().get(i).getRotulo() != getVertice(pai).getRotulo())
-                {
-                    if(i != getVertice(verticeAtual).verticesVizinhos().size()-1)
-                    {
-                        System.out.print(getVertice(pai).getRotulo());
-                    }
-                    else {
-                        System.out.print(getVertice(verticeAtual).verticesVizinhos().get(i).getRotulo());
-                    }
 
-                    return true;
+        for (Vertice verticeVizinho : getVertice(verticeAtual).verticesVizinhos()) {
+
+            if (!verticeVizinho.getFlag()) {
+
+                acharCicloAux(verticeVizinho.getIndice(), verticeAtual, ciclo);
+            }
+            else {
+                if(verticeVizinho.getRotulo() != getVertice(pai).getRotulo())
+                {
+                    System.out.println("rodou");
+                    buscaEmProfundidade(verticeVizinho.getIndice(), verticeAtual).imprimirPasseio();
+                    //ciclo.addAllVerticesPasseio(buscaEmProfundidade(verticeVizinho.getIndice(), verticeAtual).getVerticesPasseio());
+                    //ciclo.addVerticePasseio(verticeVizinho);
+                    //ciclo.addVerticePasseio(getVertice(verticeAtual));
+                    break;
+
+
                 }
-            } else if (ciclo(getVertice(verticeAtual).verticesVizinhos().get(i).getIndice(), pai))
-            {
-                return true;
             }
         }
-        return false;
     }
+
 
 
     public boolean isConexo() {

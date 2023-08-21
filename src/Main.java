@@ -81,12 +81,12 @@ public class Main
         grafo3.adicionarAresta(2,3);
         grafo3.adicionarAresta(3,1);
 
-        grafo3.ciclo(1,1);
+        grafo3.acharCiclo(3,3).imprimirPasseio();
 
 
 
 
-
+        /*
         System.out.println("\n\nExercicio 5.12 ");
         if (grafo3.isConexo()) {
             System.out.println("O grafo 3 e conexo");
@@ -99,7 +99,7 @@ public class Main
         }
         if (!grafo2.isConexo()) {
             System.out.println("O Grafo 2 nao e conexo");
-        }
+        }*/
 
 
     }
