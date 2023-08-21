@@ -70,7 +70,7 @@ public class Main
         System.out.println("\nv = 5\nx = 1");
         grafo2.buscaEmProfundidade(5, 1).imprimirPasseio();
 
-        System.out.println("\nExercicio 5.7");
+        System.out.println("\nExercicio 5.7\nGrafo triangulo");
 
         Grafo grafo3 = new Grafo(3, false);
         grafo3.adicionarVertice(1,"v1");
@@ -81,12 +81,31 @@ public class Main
         grafo3.adicionarAresta(2,3);
         grafo3.adicionarAresta(3,1);
 
+        grafo3.acharCiclo(1,2).imprimirPasseio();
+        grafo3.acharCiclo(2,2).imprimirPasseio();
         grafo3.acharCiclo(3,3).imprimirPasseio();
 
+        System.out.println("\nExercicio 5.8");
 
+        System.out.println("\nExercicio 5.9");
 
+        System.out.println("\nExercicio 5.10");
 
-        /*
+        System.out.println("\nExercicio 5.11");
+
+        Grafo grafo4 = new Grafo(4,false);
+        grafo4.adicionarVertice(1,"v1");
+        grafo4.adicionarVertice(2,"v2");
+        grafo4.adicionarVertice(3,"v3");
+        grafo4.adicionarVertice(4,"v4");
+
+        grafo4.adicionarAresta(1,2,"a");
+        grafo4.adicionarAresta(2,3,"b");
+        grafo4.adicionarAresta(3,4,"c");
+
+        System.out.println(grafo3.naoContemCircuitos());
+        System.out.println(grafo4.naoContemCircuitos());
+
         System.out.println("\n\nExercicio 5.12 ");
         if (grafo3.isConexo()) {
             System.out.println("O grafo 3 e conexo");
@@ -99,7 +118,7 @@ public class Main
         }
         if (!grafo2.isConexo()) {
             System.out.println("O Grafo 2 nao e conexo");
-        }*/
+        }
 
 
     }

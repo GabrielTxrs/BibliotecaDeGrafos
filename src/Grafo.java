@@ -1,7 +1,6 @@
 import java.util.*;
 
-public class Grafo
-{
+public class Grafo {
     private int numVertices;
     private List<Vertice> vertices;
     private int numArestas;
@@ -22,6 +21,10 @@ public class Grafo
 
     public int getNumVertices() {
         return numVertices;
+    }
+
+    public int getNumArestas() {
+        return numArestas;
     }
 
     public void adicionarVertice(int indice, String rotulo) {
@@ -230,7 +233,7 @@ public class Grafo
         return saida;
     }
 
-    private void buscaAuxiliar(int verticeAtual, int destino,  boolean[] visitados, List<Vertice> passeio, Passeio saida) {
+    private void buscaAuxiliar(int verticeAtual, int destino, boolean[] visitados, List<Vertice> passeio, Passeio saida) {
 
         visitados[verticeAtual - 1] = true; // -1 pois o indice do array e diferente do indice passado no parametro
         getVertice(verticeAtual).setProfundidadeEntrada(contadorEntrada++);
@@ -252,59 +255,68 @@ public class Grafo
         passeio.remove(passeio.size() - 1);
     }
 
-    public boolean isCiclico(int verticeAtual, int pai)
-    {
+    public boolean isCiclico(int verticeAtual, int pai) {
         getVertice(verticeAtual).setFlag(true);
-        for (Vertice verticeVizinho : getVertice(verticeAtual).verticesVizinhos())
-        {
-            if (verticeVizinho.getFlag())
-            {
-                if (verticeVizinho.getRotulo() == getVertice(verticeAtual).getRotulo() || verticeVizinho.getRotulo() != getVertice(pai).getRotulo())
-                {
+        for (Vertice verticeVizinho : getVertice(verticeAtual).verticesVizinhos()) {
+            if (verticeVizinho.getFlag()) {
+                if (verticeVizinho.getRotulo() == getVertice(verticeAtual).getRotulo() || verticeVizinho.getRotulo() != getVertice(pai).getRotulo()) {
                     return true;
                 }
-            } else if (isCiclico(verticeVizinho.getIndice(), pai))
-            {
+            } else if (isCiclico(verticeVizinho.getIndice(), pai)) {
                 return true;
             }
         }
         return false;
     }
 
-    public Passeio acharCiclo(int origem, int pai)
-    {
+    boolean marcador = false;
+
+    public Passeio acharCiclo(int origem, int pai) {
+        for (Vertice vertice : vertices) {
+            vertice.setFlag(false);
+        }
+        marcador = false;
         Passeio ciclo = new Passeio();
 
         acharCicloAux(origem, pai, ciclo);
 
         return ciclo;
     }
-    private void acharCicloAux(int verticeAtual, int pai, Passeio ciclo)
-    {
+
+    private boolean acharCicloAux(int verticeAtual, int pai, Passeio ciclo) {
         getVertice(verticeAtual).setFlag(true);
 
         for (Vertice verticeVizinho : getVertice(verticeAtual).verticesVizinhos()) {
 
             if (!verticeVizinho.getFlag()) {
 
-                acharCicloAux(verticeVizinho.getIndice(), verticeAtual, ciclo);
-            }
-            else {
-                if(verticeVizinho.getRotulo() != getVertice(pai).getRotulo())
-                {
-                    System.out.println("rodou");
-                    buscaEmProfundidade(verticeVizinho.getIndice(), verticeAtual).imprimirPasseio();
-                    //ciclo.addAllVerticesPasseio(buscaEmProfundidade(verticeVizinho.getIndice(), verticeAtual).getVerticesPasseio());
-                    //ciclo.addVerticePasseio(verticeVizinho);
-                    //ciclo.addVerticePasseio(getVertice(verticeAtual));
-                    break;
-
-
+                if (!marcador) {
+                    acharCicloAux(verticeVizinho.getIndice(), verticeAtual, ciclo);
                 }
+            } else {
+                if (!marcador) {
+                    if (verticeVizinho.getRotulo() != getVertice(pai).getRotulo()) {
+                        marcador = true;
+                        ciclo.addAllVerticesPasseio(buscaEmProfundidade(verticeVizinho.getIndice(), verticeAtual).getVerticesPasseio());
+                        ciclo.addVerticePasseio(verticeVizinho);
+                        return true;
+
+                    }
+                }
+
             }
         }
+        return false;
     }
 
+    public boolean naoContemCircuitos()
+    {
+        if(isConexo() && getNumVertices() == getNumArestas()+1)
+        {
+            return true;
+        }
+        return false;
+    }
 
 
     public boolean isConexo() {
