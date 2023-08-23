@@ -10,6 +10,8 @@ public class Vertice
     private List<Vertice> verticesVizinhos;
     private int profundidadeEntrada;
     private int profundidadeSaida;
+    private int componente;
+
 
     public Vertice(int indice)
     {
@@ -20,6 +22,8 @@ public class Vertice
         this.verticesVizinhos = new ArrayList<>();
         setProfundidadeEntrada(1);
         setProfundidadeSaida(1);
+        setComponente(-1);
+
     }
     public Vertice(int indice, String rotulo)
     {
@@ -30,6 +34,7 @@ public class Vertice
         this.verticesVizinhos = new ArrayList<>();
         setProfundidadeEntrada(1);
         setProfundidadeSaida(1);
+        setComponente(-1);
     }
     public List<Vertice> verticesVizinhos(){return verticesVizinhos;}
     public String getRotulo() {
@@ -78,6 +83,14 @@ public class Vertice
     }
     public int getProfundidadeEntrada(){return profundidadeEntrada;}
     public int getProfundidadeSaida(){return profundidadeSaida;}
+
+    public int getComponente() {
+        return componente;
+    }
+
+    public void setComponente(int componente) {
+        this.componente = componente;
+    }
 
     public boolean addVerticeVizinho(Vertice vertice) {
         return verticesVizinhos.add(vertice);

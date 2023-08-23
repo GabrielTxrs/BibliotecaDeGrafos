@@ -76,6 +76,14 @@ public class Grafo {
         }
         return vertices.get(marcador);
     }
+    public boolean saoVizinhos(int vertice1, int vertice2) {
+        for (Vertice vertice : getVertice(vertice1).verticesVizinhos()) {
+            if(vertice.getIndice() == vertice2) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void imprimirVertice(int i) {
         System.out.println(vertices.get(i - 1).getIndice());
@@ -147,7 +155,7 @@ public class Grafo {
         System.out.println("Estrutura de dados: \nLista de Adjacencia\n");
 
         for (int x = 0; x < numVertices; x++) {
-            System.out.print("Vertice " + vertices.get(x).getRotulo() + ": ");
+            System.out.print("Vertice "+ vertices.get(x).getRotulo() + ": ");
             for (Vertice vertice : vertices.get(x).verticesVizinhos()) {
                 System.out.print(vertice.getRotulo() + " ");
             }
@@ -204,20 +212,29 @@ public class Grafo {
             return new Passeio();
         }
     }
-
+    private int componente = 1;
+    public void componentes()
+    {
+        componente = 1;
+        for (Vertice v : vertices) {
+            if (v.getComponente() == -1) {
+                buscaEmProfundidade(v.getIndice());
+                componente++;
+            }
+        }
+    }
     public void buscaEmProfundidade(int vertice) {
 
         getVertice(vertice).setFlag(true);
-        System.out.print(getVertice(vertice).getRotulo() + " ");
+        getVertice(vertice).setComponente(componente);
+        System.out.print(getVertice(vertice).getRotulo()+" "+getVertice(vertice).getComponente()+" ");
 
         for (Vertice vertex : getVertice(vertice).verticesVizinhos()) {
             if (!vertex.getFlag()) {
                 buscaEmProfundidade(vertex.getIndice());
             }
         }
-
     }
-
     private int contadorEntrada = 1;
     private int contadorSaida = 1;
 
@@ -255,6 +272,21 @@ public class Grafo {
         passeio.remove(passeio.size() - 1);
     }
 
+    public Passeio encontrarCiclo2(int origem, int destino)
+    {
+        Passeio passeio = new Passeio();
+        for (Vertice vertice : getVertice(origem).verticesVizinhos())
+        {
+            if (vertice.getIndice() != getVertice(destino).getIndice() && saoVizinhos(vertice.getIndice(), destino)) {
+                passeio.addAllVerticesPasseio(buscaEmProfundidade(origem, vertice.getIndice()).getVerticesPasseio());
+                passeio.addVerticePasseio(getVertice(destino));
+                break;
+            }
+        }
+        return passeio;
+    }
+
+
     public boolean isCiclico(int verticeAtual, int pai) {
         getVertice(verticeAtual).setFlag(true);
         for (Vertice verticeVizinho : getVertice(verticeAtual).verticesVizinhos()) {
@@ -270,7 +302,6 @@ public class Grafo {
     }
 
     boolean marcador = false;
-
     public Passeio acharCiclo(int origem, int pai) {
         for (Vertice vertice : vertices) {
             vertice.setFlag(false);

@@ -14,10 +14,10 @@ public class Main
         grafo1.adicionarVertice(4, "v4");
         grafo1.adicionarVertice(5, "v5");
 
-        grafo1.adicionarAresta(1, 2, "a");
-        grafo1.adicionarAresta(2, 3, "b");
-        grafo1.adicionarAresta(3, 4, "c");
-        grafo1.adicionarAresta(4, 5, "d");
+        grafo1.adicionarAresta(1,2,"a");
+        grafo1.adicionarAresta(2,3,"b");
+        grafo1.adicionarAresta(3,4,"c");
+        grafo1.adicionarAresta(4,5,"d");
 
         grafo1.imprimirGrafo();
 
@@ -86,25 +86,76 @@ public class Main
         grafo3.acharCiclo(3,3).imprimirPasseio();
 
         System.out.println("\nExercicio 5.8");
+        Grafo grafo6 = new Grafo(4, false);
+
+        grafo6.adicionarVertice(1, "v1");
+        grafo6.adicionarVertice(2, "v2");
+        grafo6.adicionarVertice(3, "v3");
+        grafo6.adicionarVertice(4, "v4");
+
+        grafo6.adicionarAresta(1,2,"a");
+        grafo6.adicionarAresta(1,3,"b");
+        grafo6.adicionarAresta(1,4,"g");
+
+        grafo6.adicionarAresta(2,3,"c");
+        grafo6.adicionarAresta(2,4,"d");
+        grafo6.adicionarAresta(3,4,"d");
+
+        grafo6.encontrarCiclo2(1,4).imprimirPasseio();
+        grafo6.encontrarCiclo2(1,3).imprimirPasseio();
+        grafo6.encontrarCiclo2(2,4).imprimirPasseio();
+
+        Grafo grafo7 = new Grafo(4, false);
+
+        grafo7.adicionarVertice(1, "v1");
+        grafo7.adicionarVertice(2, "v2");
+        grafo7.adicionarVertice(3, "v3");
+        grafo7.adicionarVertice(4, "v4");
+
+        grafo7.adicionarAresta(1,2,"a");
+        grafo7.adicionarAresta(2,3,"b");
+        grafo7.adicionarAresta(3,4,"g");
+
+        grafo7.adicionarAresta(4,1,"c");
+        grafo7.imprimirGrafo();
+
+        grafo7.encontrarCiclo2(1,4).imprimirPasseio();
 
         System.out.println("\nExercicio 5.9");
 
         System.out.println("\nExercicio 5.10");
-
-        System.out.println("\nExercicio 5.11");
-
-        Grafo grafo4 = new Grafo(4,false);
+        Grafo grafo4 = new Grafo(6,false);
         grafo4.adicionarVertice(1,"v1");
         grafo4.adicionarVertice(2,"v2");
         grafo4.adicionarVertice(3,"v3");
         grafo4.adicionarVertice(4,"v4");
+        grafo4.adicionarVertice(5,"v5");
+        grafo4.adicionarVertice(6,"v6");
 
         grafo4.adicionarAresta(1,2,"a");
         grafo4.adicionarAresta(2,3,"b");
-        grafo4.adicionarAresta(3,4,"c");
+        grafo4.adicionarAresta(3,1,"c");
+
+        grafo4.adicionarAresta(4,5,"d");
+        grafo4.adicionarAresta(5,6,"e");
+        grafo4.adicionarAresta(6,4,"f");
+
+        grafo4.componentes();
+
+        System.out.println("\nExercicio 5.11");
+
+        Grafo grafo5 = new Grafo(4,false);
+        grafo5.adicionarVertice(1,"v1");
+        grafo5.adicionarVertice(2,"v2");
+        grafo5.adicionarVertice(3,"v3");
+        grafo5.adicionarVertice(4,"v4");
+
+        grafo5.adicionarAresta(1,2,"a");
+        grafo5.adicionarAresta(2,3,"b");
+        grafo5.adicionarAresta(3,4,"c");
 
         System.out.println(grafo3.naoContemCircuitos());
-        System.out.println(grafo4.naoContemCircuitos());
+        System.out.println(grafo5.naoContemCircuitos());
 
         System.out.println("\n\nExercicio 5.12 ");
         if (grafo3.isConexo()) {
@@ -119,7 +170,5 @@ public class Main
         if (!grafo2.isConexo()) {
             System.out.println("O Grafo 2 nao e conexo");
         }
-
-
     }
 }
