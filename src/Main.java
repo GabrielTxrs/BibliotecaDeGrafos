@@ -101,25 +101,20 @@ public class Main
         grafo6.adicionarAresta(2,4,"d");
         grafo6.adicionarAresta(3,4,"d");
 
+        grafo6.imprimirGrafo();
+
+        System.out.println("1 -> 4");
         grafo6.encontrarCiclo2(1,4).imprimirPasseio();
+        System.out.println("1 -> 3");
         grafo6.encontrarCiclo2(1,3).imprimirPasseio();
+        System.out.println("2 -> 4");
         grafo6.encontrarCiclo2(2,4).imprimirPasseio();
-
-        Grafo grafo7 = new Grafo(4, false);
-
-        grafo7.adicionarVertice(1, "v1");
-        grafo7.adicionarVertice(2, "v2");
-        grafo7.adicionarVertice(3, "v3");
-        grafo7.adicionarVertice(4, "v4");
-
-        grafo7.adicionarAresta(1,2,"a");
-        grafo7.adicionarAresta(2,3,"b");
-        grafo7.adicionarAresta(3,4,"g");
-
-        grafo7.adicionarAresta(4,1,"c");
-        grafo7.imprimirGrafo();
-
-        grafo7.encontrarCiclo2(1,4).imprimirPasseio();
+        System.out.println("3 -> 4");
+        grafo6.encontrarCiclo2(3,4).imprimirPasseio();
+        System.out.println("4 -> 2");
+        grafo6.encontrarCiclo2(4,2).imprimirPasseio();
+        System.out.println("4 -> 3");
+        grafo6.encontrarCiclo2(4,3).imprimirPasseio();
 
         System.out.println("\nExercicio 5.9");
 
